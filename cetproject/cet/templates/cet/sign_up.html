@@ -1,0 +1,72 @@
+{% extends 'cet/master.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+          <span class="sr-only">Toggle nav</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+        <!-- Logo text or image -->
+        <a class="navbar-brand" href="index.html">Cutting Edge Technologies</a>
+
+      </div>
+      <div class="navigation collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+          <li class="current"><a href="#intro">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Service</a></li>
+          <li><a href="#portfolio">Works</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- intro area -->
+  <section id="intro">
+    <div class="intro-container">
+        <h1 class="signupheader">Sign Up</h1>
+        <hr/>
+        <form action="/sign_up/" method="post" class="signinform">
+            <div class="inputcontainer">
+                <label for="first_name">First Name</label>
+                <input autofocus id="first_name" type="text" name="first_name"/>
+            </div>
+            <div class="inputcontainer">
+                <label for="last_name">Last Name</label>
+                <input id="last_name" type="text" name="last_name"/>
+            </div>
+            <div class="inputcontainer">
+                <label for="phone">Phone</label>
+                <input id="phone" type="tel" class="bfh-phone" name="phone" data-format="+1 (ddd) ddd-dddd"/>
+            </div>
+            <div class="inputcontainer">
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email"/>
+            </div>
+            <div class="inputcontainer">
+                 <label for="password">Password</label>
+                <input id="password" type="password" name="password"/>
+            </div>
+
+            <div style="display:block;"  class="inputcontainer">
+                <button type="submit">Sign Up</button>
+            </div>
+        </form>
+    </div>
+  </section><!-- #intro -->
+
+
+
+
+{% endblock %}

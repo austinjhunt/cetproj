@@ -1,0 +1,58 @@
+{% extends 'cet/master.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+{% if fail %}
+<script>
+    alert("Could not authenticate. Please try again.");
+</script>
+{% endif %}
+
+<!-- Navigation -->
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle nav</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <!-- Logo text or image -->
+            <a class="navbar-brand" href="index.html">Cutting Edge Technologies</a>
+
+        </div>
+        <div class="navigation collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li class="current"><a href="/">Home</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- intro area -->
+<section id="intro">
+    <div class="intro-container">
+        <h1 class="signupheader">Sign In</h1>
+        <hr/>
+        <form action="/sign_in/" method="post" class="signinform">
+            <div class="inputcontainer">
+                <label for="email">Email</label>
+                <input id="email" type="email" name="email"/>
+            </div>
+            <div class="inputcontainer">
+                 <label for="password">Password</label>
+                <input id="password" type="password" name="password"/>
+            </div>
+            <div style="color: white; display:block;" class="inputcontainer">
+                <button class="btn btn-lg btn-primary" type="submit">Sign In</button>
+                or <a href="/sign_up/"><u>CREATE AN ACCOUNT</u></a>
+            </div>
+        </form>
+    </div>
+</section><!-- #intro -->
+
+{% endblock %}
