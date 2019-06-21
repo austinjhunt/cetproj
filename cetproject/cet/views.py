@@ -50,6 +50,14 @@ def isauth(request):
 def ajax(request):
     return request.is_ajax()
 
+
+# for ajax requests, returning JSON to JS
+def render_to_json_response(context, **response_kwargs):
+    data = json.dumps(context)
+    response_kwargs['content_type'] = 'application/json'
+    return HttpResponse(data, **response_kwargs)
+
+
 @csrf_exempt
 def index(request):
     context = {}
@@ -108,3 +116,13 @@ def sign_in(request):
 def log_out(request):
     logout(request)
     return HttpResponseRedirect('/sign_in/')
+
+@csrf_exempt
+def get_distributors(request):
+    if request.is_ajax():
+        #Distributor(name="TestDistributor",open_time=datetime.datetime.now().time(),close_time=(datetime.datetime.now() + datetime.timedelta(hours=3)),phone_number='8643333333',location="Anderson").save()
+        print(Distributor.objects.all())
+        d = [DistributorObj(el).toJSON() for el in Distributor.objects.all()]
+        data = {'distributors': d}
+        return render_to_json_response(data)
+

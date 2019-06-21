@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-{%  load staticfiles %}
+{% load staticfiles %}
+{% load compress %}
 
 <html>
 <head>
@@ -21,12 +22,14 @@
     <!-- css -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,300,700,800" rel="stylesheet"
           media="screen">
+    {% compress css %}
     <link href="{% static 'cet/css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
     <link href="{% static 'cet/css/style.css' %}" rel="stylesheet" media="screen">
     <link href="{% static 'cet/css/datatables.min.css' %}" rel="stylesheet" media="screen">
     <link href="{% static 'cet/css/default.css' %}" rel="stylesheet" media="screen">
-
+    {% endcompress %}
     <!-- js -->
+    {% compress js %}
     <script src="{% static 'cet/js/jquery.js' %}"></script>
     <script src="{% static 'cet/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'cet/js/wow.min.js' %}"></script>
@@ -37,12 +40,12 @@
     <script src="{% static 'cet/js/stellar.js' %}"></script>
     <script src="{% static 'cet/js/bootstrap-formhelpers-phone.js' %}"></script>
     <script src="{% static 'cet/js/datatables.min.js' %}"></script>
+    <script src="{% static 'cet/js/main.js' %}"></script>
     <!-- Contact Form JavaScript File -->
     <script src="{% static 'cet/js/contactform.js' %}"></script>
-
     <!-- Template Custom Javascript File -->
     <script src="{% static 'cet/js/custom.js' %}"></script>
-
+    {% endcompress %}
 
 </head>
 

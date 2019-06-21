@@ -2,6 +2,150 @@
 {% load staticfiles %}
 {% block content %}
 
+<!-- add part modal -->
+<!-- Modal -->
+<div class="modal fade" id="addPartModalCenter" tabindex="-1" role="dialog" aria-labelledby="addPartModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addPartModalLongTitle">Add a Part</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="addPartModalBody" class="modal-body">
+          <script>
+
+               // create some for add part
+            $("#addPartModalBody").append(
+                inputwithlabel({
+                    label: "Name",
+                    type: "text",
+                    modalName: "addPartModal",
+                    autofocus: 1,
+                })
+            ).append(
+                inputwithlabel({
+                    label: "Part Number",
+                    type: "number",
+                    modalName: "addPartModal",
+                })
+            ).append(
+                selectwithlabel({
+                    label: "Distributor",
+                    type: "text",
+                    modalName: "addPartModal",
+                })
+            ).append(
+                selectwithlabel({
+                    label: "Manufacturer",
+                    type: "text",
+                    modalName: "addPartModal",
+                })
+            );
+          </script>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- add distributor modal -->
+<!-- Modal -->
+<div class="modal fade" id="addDistributorModalCenter" tabindex="-1" role="dialog" aria-labelledby="addDistributorModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addDistributorModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- add manuf modal -->
+<!-- Modal -->
+<div class="modal fade" id="addManufModalCenter" tabindex="-1" role="dialog" aria-labelledby="addManufModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addManufModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- add service modal -->
+<!-- Modal -->
+<div class="modal fade" id="addServiceModalCenter" tabindex="-1" role="dialog" aria-labelledby="addServiceModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addServiceModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- add photo modal -->
+<!-- Modal -->
+<div class="modal fade" id="addPhotoModalCenter" tabindex="-1" role="dialog" aria-labelledby="addPhotoModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addPhotoModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 <!-- Navigation -->
 <nav class="navbar navbar-default" role="navigation">
     <div class="container">
@@ -26,6 +170,7 @@
                 <li><a href="#distributors">Distributors</a></li>
                 <li><a href="#manufacturers">Manufacturers</a></li>
                 <li><a href="#photogallery">Gallery</a></li>
+                <li><a href="/logout/">Log Out</a></li>
             </ul>
         </div>
     </div>
@@ -228,7 +373,7 @@
             <div class="col-md-offset-2 col-md-8">
                 <div class="section-heading">
                     <h2>Parts</h2>
-                    <button class="btn btn-lg btn-primary" style="background-color:#00c1c1;border-radius:8px;"><i
+                    <button onclick="$('#addPartModalCenter').modal('show');" class="btn btn-lg btn-primary" style="background-color:#00c1c1;border-radius:8px;"><i
                             class="fa fa-plus"></i> Add a Part
                     </button>
                     <div class="heading-line"></div>

@@ -1,3 +1,4 @@
+
 from django.db import models
 
 # Create your models here.
@@ -31,7 +32,9 @@ class Manufacturer(models.Model):
 class Distributor(models.Model):
     phone_number = models.TextField(default='')
     location = models.TextField(default='')
-    hours = models.TextField(default='')
+    open_time = models.TimeField(blank=True,null=True)
+    close_time = models.TimeField(blank=True, null=True)
+    name = models.TextField(default='')
 
 class Part(models.Model):
     part_number = models.IntegerField(default=0) # determined by manufacturer

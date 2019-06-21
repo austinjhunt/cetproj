@@ -263,7 +263,6 @@ Intro
 
 #intro {
   width: 100%;
-  height: 100vh;
 	background-image: url("../img/intro/1.jpg");
 }
 .intro-container{
@@ -964,4 +963,27 @@ table.dataTable thead .sorting_desc_disabled:before {
 .thumb{
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+
+/* Modals */
+.input_label_modal_wrapper{
+	display:inline-block;
+	text-align: center;
+	width:100%;
+}
+.modal_input{
+	display:block;
+	padding: 1rem;
+	border:1px solid lightgrey;
+	font-size:1em;
+	border-radius: 7px;
+	width:100%;
+	text-align:center;
+	color:black;
+	font-weight:bolder;
+}
+.modal_label{
+	margin: 2px auto;
+	display:block;
 }
