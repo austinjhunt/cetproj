@@ -22,5 +22,9 @@ urlpatterns = [
     url(r'^sign_in/$',views.sign_in),
     url(r'^logout/$', views.log_out),
     url(r'^getdistributors/', views.get_distributors),
+    url(r'^getmanufacturers/',views.get_manufacturers),
+    url(r'^getjobs/',views.get_jobs),
+    url(r'^addNewPart/',views.addNewPart),
+    url(r'^addNewJob/',views.addNewJob),
     url('admin/', admin.site.urls),
 ]

@@ -6,11 +6,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
+    user = models.OneToOneField(User,on_delete=models.CASCADE,null=True)
     phone = models.TextField(default='')
     location = models.TextField(default='')
     num_requests = models.IntegerField(default=0)
     rating = models.IntegerField(default=5)
+    # if user does not exist, user = null, provide name and number (basic info, owner creates customer at time of job creation)
+    name = models.TextField(default='')
 
 class Job(models.Model):
     date_submitted = models.DateField()
@@ -19,6 +21,7 @@ class Job(models.Model):
     complete = models.BooleanField(default=False)
     description = models.TextField(default='')
     machine = models.TextField(default='')
+    charge = models.FloatField(default=0)
 
 class CompleteJob(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
@@ -26,7 +29,8 @@ class CompleteJob(models.Model):
 
 
 class Manufacturer(models.Model):
-    primary_contact = models.TextField(default='')
+    phone_number = models.TextField(default='')
+    name = models.TextField(default='')
     location = models.TextField(default='')
 
 class Distributor(models.Model):

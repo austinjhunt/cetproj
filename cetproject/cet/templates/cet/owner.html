@@ -37,9 +37,27 @@
                     modalName: "addPartModal",
                 })
             ).append(
+                inputwithlabel({
+                    label: "Cost",
+                    type: "number",
+                    modalName: "addPartModal",
+                })
+            ).append(
                 selectwithlabel({
                     label: "Manufacturer",
                     type: "text",
+                    modalName: "addPartModal",
+                })
+            ).append(
+                selectwithlabel({
+                    label: "Job",
+                    type: "text",
+                    modalName: "addPartModal",
+                })
+            ).append(
+                checkboxwithLabel({
+                    label: "Bought?",
+                    type: "checkbox",
                     modalName: "addPartModal",
                 })
             );
@@ -48,7 +66,74 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" onclick="addPart();" class="btn btn-primary">Add Part</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- add job modal -->
+<!-- Modal -->
+<div class="modal fade" id="addJobModalCenter" tabindex="-1" role="dialog" aria-labelledby="addJobModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addJobModalLongTitle">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="addJobModalBody" class="modal-body">
+          <script>
+            $("#addJobModalBody").append(
+                inputwithlabel({
+                    label: "Customer Name",
+                    type: "text",
+                    modalName: "addJobModal"
+                })
+            ).append(
+                inputwithlabel({
+                    label: "Date of Request",
+                    type: "date",
+                    modalName: "addJobModal"
+                })
+            ).append(
+                inputwithlabel({
+                    label: "Charge",
+                    type: "number",
+                    modalName: "addJobModal"
+                })
+            ).append(
+                textfieldwithlabel({
+                    label: "Description",
+                    type: "text",
+                    modalName: "addJobModal",
+                })
+            ).append(
+                inputwithlabel({
+                    label: "Machine",
+                    type: "text",
+                    modalName: "addJobModal",
+                })
+            ).append(
+                urgencyRatingWithLabel({
+                    label: "Urgency",
+                    modalName: "addJobModal",
+                })
+            ).append(
+                inputwithlabel({
+                    label: "Complete?",
+                    type: "checkbox",
+                    modalName: "addJobModal",
+                })
+            )
+            ;
+          </script>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Add Job</button>
       </div>
     </div>
   </div>
@@ -264,6 +349,9 @@
             <div class="col-md-offset-2 col-md-8">
                 <div class="section-heading">
                     <h2>Jobs</h2>
+                    <button onclick="$('#addJobModalCenter').modal('show');" class="btn btn-lg btn-primary" style="background-color:#00c1c1;border-radius:8px;"><i
+                            class="fa fa-plus"></i> Add a Job
+                    </button>
                     <div class="heading-line"></div>
                     <p>An overview of jobs requested and completed. Click a job to view more details.</p>
 

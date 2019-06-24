@@ -80,6 +80,7 @@ def sign_up(request):
         u = User.objects.create_user(email=email,username=email,last_name=rp(request,'last_name'),first_name=rp(request,'first_name'),
                  password=rp(request,'password'))
         UserProfile(phone=rp(request,'phone'),user_id=u.id).save()
+        Customer
         login(request,user=u)
         return HttpResponseRedirect('/')
 
@@ -120,9 +121,37 @@ def log_out(request):
 @csrf_exempt
 def get_distributors(request):
     if request.is_ajax():
-        #Distributor(name="TestDistributor",open_time=datetime.datetime.now().time(),close_time=(datetime.datetime.now() + datetime.timedelta(hours=3)),phone_number='8643333333',location="Anderson").save()
-        print(Distributor.objects.all())
-        d = [DistributorObj(el).toJSON() for el in Distributor.objects.all()]
-        data = {'distributors': d}
-        return render_to_json_response(data)
+        return render_to_json_response({'distributors': [DistributorObj(el).toJSON() for el in Distributor.objects.all()]})
 
+@csrf_exempt
+def get_manufacturers(request):
+    if request.is_ajax():
+        return render_to_json_response({'manufacturers': [ManufacturerObj(el).toJSON() for el in Manufacturer.objects.all()]})
+
+@csrf_exempt
+def get_jobs(request):
+    if request.is_ajax():
+        return render_to_json_response({'jobs': [JobObj(el).toJSON() for el in Job.objects.all()]})
+
+@csrf_exempt
+def addNewPart(request):
+    if request.is_ajax():
+        name = rp(request,'name')
+        num = rp(request,'num')
+        man_id = rp(request,'man')
+        dist_id = rp(request,'dist')
+        cost = rp(request,'cost')
+        job_id = rp(request,'job')
+        still_need_part = True if rp(request,'still_need_part') == 'true' else False
+        newPart = Part(part_number=num, manufacturer_id=man_id, part_name=name)
+        newPart.save()
+
+        Part_Distributor(part_id=newPart.id,distributor_id=dist_id,cost=cost).save()
+        Part_Job(part_id=newPart.id,job_id=job_id,still_need_part=still_need_part).save()
+
+        return HttpResponseRedirect('/#parts')
+
+@csrf_exempt
+def addNewJob(request):
+    if request.is_ajax():
+        pass

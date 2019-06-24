@@ -54,3 +54,13 @@ class DistributorObj:
     def toJSON(self):
         return json.dumps(self, default=lambda o: json_default(o), sort_keys=True, indent=4)
 
+
+class ManufacturerObj:
+    def __init__(self, M):
+        self.id = M.id
+        self.name = M.name
+        self.phone = M.phone_number
+        self.location = M.location
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: json_default(o), sort_keys=True, indent=4)
