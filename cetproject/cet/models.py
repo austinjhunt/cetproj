@@ -56,3 +56,27 @@ class Part_Job(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     part = models.ForeignKey(Part,on_delete=models.CASCADE)
     still_need_part = models.BooleanField(default=True)
+
+class Invoice(models.Model):
+    # id will be the invoice number; unique identifier
+    date_of_invoice = models.DateField()
+    date_due = models.DateField()
+    customer = models.ForeignKey(User,on_delete=models.CASCADE)
+    notes = models.TextField(default='')
+
+"""
+Line items. The bulk of the body section is made up by line items. Line items name or describe the goods sold or services 
+rendered, the cost per unit or hourly rate, the number of units bought or hours billed, and the total due for that 
+particular item.  An invoice can contain as many line items as is applicable — individual goods or services don’t 
+require separate invoices, as long as they appear on separate lines
+"""
+class LineItem(models.Model):
+    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
+    description = models.TextField(default='')
+    hours = models.FloatField(default=0)
+    price_per_hour = models.FloatField(default=20)
+
+class BillableExpense(models.Model): # things ron had to pay for that customer needs to cover
+    invoice = models.ForeignKey(Invoice, on_delete=models.CASCADE)
+    description = models.TextField(default='')
+    cost = models.FloatField(default=0)

@@ -1,5 +1,7 @@
 from .models import *
 import datetime,json
+
+from django.contrib.auth.models import User
 # use this json serialization function particularly for objects with dates as fields
 def json_default(value):
     if isinstance(value, datetime.datetime):
@@ -61,6 +63,37 @@ class ManufacturerObj:
         self.name = M.name
         self.phone = M.phone_number
         self.location = M.location
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: json_default(o), sort_keys=True, indent=4)
+
+class LineItemObj:
+    def __init__(self,L):
+        self.id = L.id
+        self.description = L.description
+        self.invoice_id = L.invoice_id
+        self.hours = L.hours
+        self.price_per_hour = L.price_per_hour
+
+    def toJSON(self):
+        return json.dumps(self, default=lambda o: json_default(o), sort_keys=True, indent=4)
+
+
+
+class InvoiceObj():
+    def __init__(self,I):
+        self.id = I.id
+        self.date_of_invoice = I.date_of_invoice
+        self.date_due = I.date_due
+        self.customer_name = self.get_customer_name(I)
+        self.customer_address = UserProfile.objects.get(user_id=I.customer_id).location
+        self.customer_email = User.objects.get(id=I.customer_id).email
+        self.customer_phone = UserProfile.objects.get(user_id=I.customer_id).phone
+        self.lineitems = [LineItemObj(e).toJSON() for e in LineItem.objects.filter(invoice_id=self.id)]
+
+    def get_customer_name(self,I):
+        u = User.objects.get(id=I.customer_id)
+        return u.first_name + ' ' + u.last_name
 
     def toJSON(self):
         return json.dumps(self, default=lambda o: json_default(o), sort_keys=True, indent=4)

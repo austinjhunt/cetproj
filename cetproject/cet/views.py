@@ -80,7 +80,6 @@ def sign_up(request):
         u = User.objects.create_user(email=email,username=email,last_name=rp(request,'last_name'),first_name=rp(request,'first_name'),
                  password=rp(request,'password'))
         UserProfile(phone=rp(request,'phone'),user_id=u.id).save()
-        Customer
         login(request,user=u)
         return HttpResponseRedirect('/')
 
@@ -119,6 +118,11 @@ def log_out(request):
     return HttpResponseRedirect('/sign_in/')
 
 @csrf_exempt
+def requestService(request):
+    template = loader.get_template('cet/requestService.html')
+    context = {}
+    return HttpResponse(template.render(context,request))
+@csrf_exempt
 def get_distributors(request):
     if request.is_ajax():
         return render_to_json_response({'distributors': [DistributorObj(el).toJSON() for el in Distributor.objects.all()]})
@@ -132,6 +136,12 @@ def get_manufacturers(request):
 def get_jobs(request):
     if request.is_ajax():
         return render_to_json_response({'jobs': [JobObj(el).toJSON() for el in Job.objects.all()]})
+
+
+@csrf_exempt
+def get_customers(request):
+    if request.is_ajax():
+        return render_to_json_response({'customers': [CustomerObj(el).toJSON() for el in User.objects.all().exclude(id=1)]})
 
 @csrf_exempt
 def addNewPart(request):
@@ -150,8 +160,55 @@ def addNewPart(request):
         Part_Job(part_id=newPart.id,job_id=job_id,still_need_part=still_need_part).save()
 
         return HttpResponseRedirect('/#parts')
-
+def superajax(request):
+    return request.user.is_authenticated and request.user.is_superuser and request.is_ajax()
+@csrf_exempt
+def addNewInvoice(request):
+    if superajax(request):
+        customer = rp(request, 'customer')
+        date_of_invoice = rp(request,'date_of_invoice')
+        date_due = rp(request,'date_due')
+        notes = rp(request,'notes')
+        Invoice(customer_id=customer, date_of_invoice=date_of_invoice, date_due=date_due, notes=notes).save()
+        return render_to_json_response({})
+@csrf_exempt
+def delete_invoice(request):
+    if superajax(request):
+        invoiceid = rp(request,'id')
+        Invoice.objects.get(id=invoiceid).delete()
+        return render_to_json_response({})
+@csrf_exempt
+def get_invoice_info(request):
+    id=rp(request,'id')
+    invoice = InvoiceObj(Invoice.objects.get(id=id)).toJSON()
+    customers = [CustomerObj(e).toJSON() for e in User.objects.all().exclude(id=1)]
+    data = {'invoice': invoice, 'customers': customers }
+    return render_to_json_response(data)
 @csrf_exempt
 def addNewJob(request):
     if request.is_ajax():
         pass
+
+@csrf_exempt
+def invoice(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        #Invoice.objects.all().delete()
+        #LineItem.objects.all().delete()
+        #BillableExpense.objects.all().delete()
+        #new = Invoice(date_of_invoice=datetime.datetime.now().date(),date_due=datetime.datetime.now().date(),customer_id=2,notes='This is a note')
+        #new.save()
+        #for i in range(4):
+        #   LineItem(invoice_id=new.id,description='random description ' + str(i*3), hours=i, price_per_hour=23).save()
+
+        #BillableExpense(cost=10, invoice_id=new.id,description='spark plug').save()
+       # BillableExpense(cost=20, invoice_id=new.id, description='gas for mower pick up and delivery').save()
+
+
+        template = loader.get_template('cet/invoice.html')
+        invoices = [InvoiceObj(el) for el in Invoice.objects.all()]
+        context = {'invoices': invoices}
+        return HttpResponse(template.render(context,request))
+    else:
+        return HttpResponseRedirect('/')
+
+
